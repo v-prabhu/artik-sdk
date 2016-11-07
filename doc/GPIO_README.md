@@ -3,7 +3,7 @@
 ##Constructor
 
 ```javascript
-var io = new gpio(Number gpio_id, String name, String direction, String type, String edge, Number init_value);
+var io = new gpio(Number gpio_id, String name, String direction, String edge, Number init_value);
 ```
 
 **Description**
@@ -16,7 +16,6 @@ Create and configure a new instance of the GPIO tied to a specific hardware pin.
 definition files.
  - *String*: friendly name to attach to the GPIO.
  - *String*: direction to set for the GPIO. Must be **out** or **in**.
- - *String*: type of the IO. Must be **analog** or **digital**.
  - *String*: edge on which interrupts should be triggered. Must be **rising**, **falling**, **both**, or
 **none**. This parameter is ignored when the GPIO is configured as an output.
  - *Number*: initial value to set after configuration when the GPIO is set as an output. Must be **0** or **1**. This parameter is ignored when the GPIO is configured as an input.
@@ -28,8 +27,8 @@ New instance.
 **Example**
 
 ```javascript
-var led = new gpio(1, 'Green LED', 'out', 'digital', 'none', 0);
-var button = new gpio(2, 'User Button', 'in', 'digital', 'rising', 0);
+var led = new gpio(1, 'Green LED', 'out', 'none', 0);
+var button = new gpio(2, 'User Button', 'in', 'rising', 0);
 ```
 
 ##request
@@ -170,30 +169,6 @@ None.
 
 ```javascript
 console.log('Direction: ' + led.get_direction());
-```
-
-##get_type
-
-```javascript
-String get_type()
-```
-
-**Description**
-
-Get the type of the GPIO instance.
-
-**Parameters**
-
-None.
-
-**Return value**
-
-*String*: type of the GPIO, can be **digital** or **analog**.
-
-**Example**
-
-```javascript
-console.log('Type: ' + led.get_type());
 ```
 
 ##get_id

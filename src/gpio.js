@@ -2,9 +2,9 @@ var events = require('events');
 var util = require('util');
 var gpio = require('../lib/artik-sdk').gpio;
 
-var Gpio = function(id, label, dir, type, edge, val) {
+var Gpio = function(id, label, dir, edge, val) {
 	events.EventEmitter.call(this);
-	this.gpio = new gpio(id, label, dir, type, edge, val);
+	this.gpio = new gpio(id, label, dir, edge, val);
 }
 
 util.inherits(Gpio, events.EventEmitter);
@@ -36,10 +36,6 @@ Gpio.prototype.get_name = function get_name() {
 
 Gpio.prototype.get_direction = function get_direction() {
 	return this.gpio.get_direction();
-};
-
-Gpio.prototype.get_type = function get_type() {
-	return this.gpio.get_type();
 };
 
 Gpio.prototype.get_id = function get_id() {
