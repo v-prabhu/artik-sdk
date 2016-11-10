@@ -4,13 +4,13 @@ var artik = require('../lib/artik-sdk');
 var auth_token = '';
 var device_id = '';
 var message_data = '';
-var host = "api.artik.cloud"; 
+var host = "api.artik.cloud";
 var uri = "/v1.1/websocket?ack=true";
 var port = 443;
 var ssl_connection = 2;
 var use_se = false;
 var register_message = '{"sdid":"' + device_id + '","Authorization":"bearer ' + auth_token + '","type":"register"}';
-var test_send_message = '{\"data\": ' + message_data + ',"sdid": "' + device_id +  '","type": "message"}';
+var test_send_message = '{\"data\": "' + message_data + '" ,"sdid": "' + device_id +  '","type": "message"}';
 
 var conn = new websocket(host, uri, port, ssl_connection, use_se);
 
@@ -22,8 +22,7 @@ conn.on('connected', function(result) {
 });
 
 conn.on('receive', function(message) {
-        console.log("received: " + message);
-        conn.write_stream(test_send_message);
+    console.log("received: " + message);
 });
 
 process.on('SIGINT', function () {
@@ -32,4 +31,12 @@ process.on('SIGINT', function () {
     process.exit(0);
 });
 
+setInterval(function () {
+	conn.write_stream(test_send_message);
+}, 1000);
 
+setTimeout(function () {
+    console.log("Time out, close stream");
+    conn.close_stream();
+    process.exit(0);
+}, 5500);
